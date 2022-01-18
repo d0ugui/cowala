@@ -1,18 +1,22 @@
 import { useState } from 'react';
 
-import Input from '../Input';
-import Button from '../Button';
+import Input  from '../Input';
+import Button  from '../Button';
+
 import formatPhone from '../../utils/formatPhone';
 
-import { Container, Content, GridContent, Field, Buttons} from './styles';
+import { ContentForm, Field, GridContent, ButtonGroup } from './styles';
 
 export function Form() {
   const [name, setName] = useState('');
   const [employment, setEmployment] = useState('');
   const [phone, setPhone] = useState('');
   const [ip, setMyIp] = useState('');
-  
-  function handleMyIp() {
+
+    
+  function handleMyIp(e) {
+    e.preventDefault();
+
     fetch('https://ip-fast.com/api/ip/?format=json')
       .then(async (response) => {
         const json = await response.json();
@@ -31,55 +35,73 @@ export function Form() {
     e.preventDefault();
 
     console.log({ name, employment, phone: phone.replace(/\D/g, ''), ip});
+    localStorage.setItem('lastUser', JSON.stringify({ name, employment, phone: phone.replace(/\D/g, ''), ip}));
+    handleCleanForm();
+  }
+
+  function handleCleanForm() {
+    setName('');
+    setEmployment('');
+    setPhone('');
+    setMyIp('');
   }
 
   return (
-    <Container>
-      <Content>
-        <label>Nome</label>
-        <Input 
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+    <ContentForm>
+        <Field>
+          <label>Nome
+            <Input 
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+        </Field>
 
         <GridContent>
           <Field>
-            <label>Profissão</label>
-            <Input 
-              value={employment} 
-              onChange={(e) => setEmployment(e.target.value)}
-            />
+            <label>
+              Profissão
+              <Input 
+                value={employment} 
+                onChange={(e) => setEmployment(e.target.value)}
+              />
+            </label>
           </Field>
           <Field>
-            <label>Celular</label>
-            <Input 
-              value={phone} 
-              onChange={handlePhoneChange} 
-              maxLength={15}
-            />
+            <label>
+              Celular
+              <Input 
+                value={phone} 
+                onChange={handlePhoneChange} 
+                maxLength={15}
+              />
+            </label>
           </Field>
         </GridContent>
 
         <GridContent minus>
           <Field>
-            <label>Meu IP</label>
-            <Input
-              value={ip}
-              disabled
-            />
+            <label>
+              Meu IP
+              <Input
+                value={ip}
+                disabled
+              />
+            </label>
           </Field>
           <Field btn="true">
-            <button onClick={handleMyIp}>Encontrar IP</button>
+            <Button onClick={handleMyIp}>Encontrar IP</Button>
           </Field>
         </GridContent>
 
-        <Buttons>
+        <ButtonGroup>
           <Button onClick={handleSubmit}>
             Salvar
           </Button>
-          <Button>Limpar</Button>
-        </Buttons>
-      </Content>
-    </Container>
+          <Button onClick={handleCleanForm}>
+            Limpar
+          </Button>
+        </ButtonGroup>
+      </ContentForm>
   );
 }

@@ -1,5 +1,5 @@
 import { Header } from './components/Header';
-import { Form } from './components/Form';
+import { FormWrapper } from './components/FormWrapper';
 import { GlobalStyle } from './styles/global';
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <>
       <GlobalStyle />
       <Header />
-      <Form />
+      <FormWrapper />
     </>
   );
 }
