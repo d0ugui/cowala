@@ -21,14 +21,9 @@ export const GridContent = styled.div`
   `};
 `;
 
-export const Field = styled.div`
+export const LabelField = styled.label`
   display: flex;
   flex-direction: column;
-
-  label {
-    display: flex;
-    flex-direction: column;
-  }
 
   ${({ btn }) => css`
     justify-content: ${(btn) && 'flex-end'};

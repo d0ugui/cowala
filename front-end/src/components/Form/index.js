@@ -5,7 +5,7 @@ import Button  from '../Button';
 
 import formatPhone from '../../utils/formatPhone';
 
-import { ContentForm, Field, GridContent, ButtonGroup } from './styles';
+import { ContentForm, LabelField, GridContent, ButtonGroup } from './styles';
 
 export function Form() {
   const [name, setName] = useState('');
@@ -48,60 +48,53 @@ export function Form() {
 
   return (
     <ContentForm>
-        <Field>
-          <label>Nome
-            <Input 
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </label>
-        </Field>
+      <LabelField>
+        Nome
+        <Input 
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </LabelField>
 
-        <GridContent>
-          <Field>
-            <label>
-              Profissão
-              <Input 
-                value={employment} 
-                onChange={(e) => setEmployment(e.target.value)}
-              />
-            </label>
-          </Field>
-          <Field>
-            <label>
-              Celular
-              <Input 
-                value={phone} 
-                onChange={handlePhoneChange} 
-                maxLength={15}
-              />
-            </label>
-          </Field>
-        </GridContent>
+      <GridContent>
+        <LabelField>
+          Profissão
+          <Input 
+            value={employment} 
+            onChange={(e) => setEmployment(e.target.value)}
+          />
+        </LabelField>
+        <LabelField>
+          Celular
+          <Input 
+            value={phone} 
+            onChange={handlePhoneChange} 
+            maxLength={15}
+          />
+        </LabelField>
+      </GridContent>
 
-        <GridContent minus>
-          <Field>
-            <label>
-              Meu IP
-              <Input
-                value={ip}
-                disabled
-              />
-            </label>
-          </Field>
-          <Field btn="true">
-            <Button onClick={handleMyIp}>Encontrar IP</Button>
-          </Field>
-        </GridContent>
+      <GridContent minus>
+        <LabelField>
+          Meu IP
+          <Input
+            value={ip}
+            disabled
+          />
+        </LabelField>
+        <LabelField btn="true">
+          <Button onClick={handleMyIp}>Encontrar IP</Button>
+        </LabelField>
+      </GridContent>
 
-        <ButtonGroup>
-          <Button onClick={handleSubmit}>
-            Salvar
-          </Button>
-          <Button onClick={handleCleanForm}>
-            Limpar
-          </Button>
-        </ButtonGroup>
-      </ContentForm>
+      <ButtonGroup>
+        <Button onClick={handleSubmit}>
+          Salvar
+        </Button>
+        <Button onClick={handleCleanForm}>
+          Limpar
+        </Button>
+      </ButtonGroup>
+    </ContentForm>
   );
 }
