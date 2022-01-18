@@ -1,4 +1,5 @@
 import { Form } from '../Form';
+import { LastDev } from '../LastDev';
 import { Container, Wrapper } from './styles';
 
 export function FormWrapper() {
@@ -7,6 +8,7 @@ export function FormWrapper() {
       <Wrapper>
         <Form />
       </Wrapper>
+      <LastDev />
     </Container>
   );
 }

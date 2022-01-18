@@ -11,4 +11,8 @@ export const GlobalStyle = createGlobalStyle`
   button {
     outline: none;
   }
+
+  ul {
+    list-style: none;
+  }
 `;

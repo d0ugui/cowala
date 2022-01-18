@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Input  from '../Input';
 import Button  from '../Button';
 
+import { UserContext } from '../../context/UserContext';
+
 import formatPhone from '../../utils/formatPhone';
+import dateFormat from '../../utils/dateFormat';
 
 import { ContentForm, LabelField, GridContent, ButtonGroup } from './styles';
 
@@ -12,6 +15,8 @@ export function Form() {
   const [employment, setEmployment] = useState('');
   const [phone, setPhone] = useState('');
   const [ip, setMyIp] = useState('');
+
+  const { handleAddDev } = useContext(UserContext);
 
     
   function handleMyIp(e) {
@@ -34,9 +39,21 @@ export function Form() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log({ name, employment, phone: phone.replace(/\D/g, ''), ip});
-    localStorage.setItem('lastUser', JSON.stringify({ name, employment, phone: phone.replace(/\D/g, ''), ip}));
+    
+    const user = { 
+      name, 
+      employment, 
+      phone: phone.replace(/\D/g, ''), 
+      ip,
+      register: dateFormat(),
+    };
+
+    localStorage.setItem(
+      'lastUser', 
+      JSON.stringify(user)
+    );
     handleCleanForm();
+    handleAddDev(user);
   }
 
   function handleCleanForm() {
