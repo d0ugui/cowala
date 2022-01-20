@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 
 import { Home } from './pages/Home';
-import { LastDev } from './pages/LastDev';
+import { ListDevs } from './pages/ListDevs';
 
 import { UserProvider } from './context/UserContext';
 
@@ -17,7 +17,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/last" element={<LastDev />} />
+          <Route path="/registers" element={<ListDevs />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

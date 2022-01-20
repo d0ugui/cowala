@@ -7,9 +7,9 @@ import { UserContext } from '../../context/UserContext';
 
 import formatPhone from '../../utils/formatPhone';
 import dateFormat from '../../utils/dateFormat';
+import delay from '../../utils/delay';
 
 import { ContentForm, LabelField, GridContent, ButtonGroup } from './styles';
-import { Link } from 'react-router-dom';
 
 export function Form() {
   const [name, setName] = useState('');
@@ -17,19 +17,25 @@ export function Form() {
   const [phone, setPhone] = useState('');
   const [ip, setMyIp] = useState('');
 
-  const { setDevs } = useContext(UserContext);
+  const { devs, setDevs, setIsLoading } = useContext(UserContext);
 
     
   function handleMyIp(e) {
     e.preventDefault();
 
+    setIsLoading(true);
+
     fetch('https://ip-fast.com/api/ip/?format=json')
       .then(async (response) => {
+        await delay(2000);
+
         const json = await response.json();
         setMyIp(json.ip);
+        setIsLoading(false);
       })
       .catch((err) => {
-        console.log('erro', err)
+        console.log('erro', err);
+        setIsLoading(false);
       })
   }
 
@@ -37,8 +43,12 @@ export function Form() {
     setPhone(formatPhone(e.target.value));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    setIsLoading(true);
+
+    await delay(2000);
 
     const user = { 
       name, 
@@ -47,16 +57,19 @@ export function Form() {
       ip,
       register: dateFormat(),
     };
-
-    localStorage.setItem(
-      'lastUser', 
-      JSON.stringify(user)
-    );
     
     setDevs((prevState) => (
       [...prevState, user]
     ))
 
+    const prevDevs = [...devs, user];
+
+    localStorage.setItem(
+      'localDevs', 
+      JSON.stringify(prevDevs)
+    );
+
+    setIsLoading(false);
     handleCleanForm();
   }
 
@@ -70,7 +83,7 @@ export function Form() {
   return (
     <ContentForm onSubmit={handleSubmit}>
       <LabelField>
-        Nome
+        Name
         <Input 
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -79,14 +92,14 @@ export function Form() {
 
       <GridContent>
         <LabelField>
-          Profissão
+          Employment
           <Input 
             value={employment} 
             onChange={(e) => setEmployment(e.target.value)}
           />
         </LabelField>
         <LabelField>
-          Celular
+          Phone
           <Input 
             value={phone} 
             onChange={handlePhoneChange} 
@@ -97,27 +110,25 @@ export function Form() {
 
       <GridContent minus>
         <LabelField>
-          Meu IP
+          IP Address
           <Input
             value={ip}
             disabled
           />
         </LabelField>
         <LabelField btn="true">
-          <Button onClick={handleMyIp}>Encontrar IP</Button>
+          <Button onClick={handleMyIp}>What is my IP?</Button>
         </LabelField>
       </GridContent>
 
       <ButtonGroup>
         <Button>
-          Salvar
+          Save
         </Button>
         <Button onClick={handleCleanForm}>
-          Limpar
+          Clean
         </Button>
       </ButtonGroup>
-
-      <Link to="/last">Registros</Link>
     </ContentForm>
   );
 }
