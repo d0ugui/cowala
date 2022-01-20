@@ -9,6 +9,7 @@ import formatPhone from '../../utils/formatPhone';
 import dateFormat from '../../utils/dateFormat';
 
 import { ContentForm, LabelField, GridContent, ButtonGroup } from './styles';
+import { Link } from 'react-router-dom';
 
 export function Form() {
   const [name, setName] = useState('');
@@ -16,7 +17,7 @@ export function Form() {
   const [phone, setPhone] = useState('');
   const [ip, setMyIp] = useState('');
 
-  const { handleAddDev } = useContext(UserContext);
+  const { setDevs } = useContext(UserContext);
 
     
   function handleMyIp(e) {
@@ -39,7 +40,6 @@ export function Form() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    
     const user = { 
       name, 
       employment, 
@@ -52,8 +52,12 @@ export function Form() {
       'lastUser', 
       JSON.stringify(user)
     );
+    
+    setDevs((prevState) => (
+      [...prevState, user]
+    ))
+
     handleCleanForm();
-    handleAddDev(user);
   }
 
   function handleCleanForm() {
@@ -64,7 +68,7 @@ export function Form() {
   }
 
   return (
-    <ContentForm>
+    <ContentForm onSubmit={handleSubmit}>
       <LabelField>
         Nome
         <Input 
@@ -105,13 +109,15 @@ export function Form() {
       </GridContent>
 
       <ButtonGroup>
-        <Button onClick={handleSubmit}>
+        <Button>
           Salvar
         </Button>
         <Button onClick={handleCleanForm}>
           Limpar
         </Button>
       </ButtonGroup>
+
+      <Link to="/last">Registros</Link>
     </ContentForm>
   );
 }

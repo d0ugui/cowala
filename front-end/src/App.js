@@ -1,5 +1,9 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import { Header } from './components/Header';
-import { FormWrapper } from './components/FormWrapper';
+
+import { Home } from './pages/Home';
+import { LastDev } from './pages/LastDev';
 
 import { UserProvider } from './context/UserContext';
 
@@ -9,8 +13,13 @@ function App() {
   return (
     <UserProvider>
       <GlobalStyle />
-      <Header />
-      <FormWrapper />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/last" element={<LastDev />} />
+        </Routes>
+      </BrowserRouter>
     </UserProvider>
   );
 }

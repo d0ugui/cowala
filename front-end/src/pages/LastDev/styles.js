@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin-top: 30px;
-  width: 100%;  
+  width: 100%;
+  max-width: 1103px; 
+  margin: 50px auto 0;  
 
   display: flex;
   flex-direction: column;
@@ -21,23 +22,6 @@ export const Container = styled.div`
       font-weight: 500;
       color: #fff;
       padding: 5px 5px;
-    }
-  }
-
-  ul {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-
-    li {
-      width: 100%;
-      margin-top: 10px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      text-align: center;
-      background: #EDEDED;
-      padding: 5px 5px;
-      border-radius: 4px;
     }
   }
 
