@@ -23,19 +23,13 @@ export function Form() {
   function handleMyIp(e) {
     e.preventDefault();
 
-    setIsLoading(true);
-
     fetch('https://ip-fast.com/api/ip/?format=json')
       .then(async (response) => {
-        await delay(2000);
-
         const json = await response.json();
         setMyIp(json.ip);
-        setIsLoading(false);
       })
       .catch((err) => {
         console.log('erro', err);
-        setIsLoading(false);
       })
   }
 
@@ -73,11 +67,13 @@ export function Form() {
     handleCleanForm();
   }
 
-  function handleCleanForm() {
+  async function handleCleanForm() {
     setName('');
     setEmployment('');
     setPhone('');
     setMyIp('');
+
+    await delay(2000);
   }
 
   return (
