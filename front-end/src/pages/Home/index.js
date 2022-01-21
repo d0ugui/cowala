@@ -25,11 +25,7 @@ export function Home() {
         return
       }
 
-      localDevs.map((dev) => (
-        setDevs((prevState) => (
-          [...prevState, dev]
-        ))
-      ))
+      setDevs(localDevs)
 
       setIsLoading(false);
     }
