@@ -1,8 +1,18 @@
 const array =  [
   {
+    souEu: false,
+    responsavel: false,
+    nome: 'Lucas Pereira'
+  },
+  {
     souEu: true,
     responsavel: false,
     nome: 'Douglas Oliveira'
+  },
+  {
+    souEu: false,
+    responsavel: false,
+    nome: 'Ana Leandro'
   },
   {
     souEu: false,
@@ -17,25 +27,34 @@ const array =  [
   {
     souEu: false,
     responsavel: false,
-    nome: 'Lucas Pereira'
-  },
-  {
-    souEu: false,
-    responsavel: true,
     nome: 'Laura Pereira'
   }
 ]
 
-function classificador(a, b) {
-  if (a.souEu > b.souEu) {
-    return -1;
-  } 
-  if (a.souEu < b.souEu) {
-    return 1;
-  }
-  if (a.responsavel > b.responsavel ) {
-    return -1;
-  }
+function classificador(arr) {
+  const rst = [];
+
+  arr.sort((a, b) => {
+    if (a.souEu > b.souEu) return -1; 
+    if (a.souEu < b.souEu) return 1;
+    if (a.responsavel > b.responsavel) return -1;
+    if (a.responsavel < b.responsavel) return 1;
+    if (a.nome > b.nome) return 1;
+    if (a.nome < b.nome) return -1;
+    return 0;
+  });
+
+  arr.map((user) => {
+    if (user.souEu) {
+      rst.push(user.nome)
+    } else if (user.responsavel) {
+      rst.push(user.nome)
+    } else {
+      rst.push(user.nome)
+    }
+  })
+
+  return rst;
 }
 
-console.log(array.sort(classificador));
+console.log(classificador(array));
