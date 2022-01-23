@@ -66,12 +66,12 @@ export function Form() {
 
     setIsLoading(true);
 
-    await delay(2000);
+    await delay(1000);
 
     const user = { 
       name, 
-      employment, 
-      phone: phone.replace(/\D/g, ''), 
+      employment: employment || '----', 
+      phone: phone.replace(/\D/g, '') || '----', 
       ip,
       register: dateFormat(),
     };
@@ -143,8 +143,9 @@ export function Form() {
       <GridContent minus>
         <LabelField>
           IP Address
-          <FormGroup>
+          <FormGroup error={getErrorMessageByFieldName('ip')}>
             <Input
+              error={getErrorMessageByFieldName('ip')}
               value={ip}
               disabled
             />
