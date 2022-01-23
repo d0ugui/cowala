@@ -11,4 +11,5 @@ function validate(dt, str) {
   }
 }
 
+// Invocando função
 validate("2021-12-10T00:00:00.000Z", "180d");

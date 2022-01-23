@@ -57,4 +57,5 @@ function classificador(arr) {
   return rst;
 }
 
+// Logando resultado
 console.log(classificador(array));

@@ -26,4 +26,5 @@ function moldura(a, b) {
   }
 }
 
-moldura(9, 6);
+// Invocando função
+moldura(1, 3);

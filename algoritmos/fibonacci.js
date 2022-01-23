@@ -8,5 +8,5 @@ function fibonacci(n) {
   return initialValue;
 }
 
-
+// Logando resultado
 console.log(fibonacci(10));
